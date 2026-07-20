@@ -2,6 +2,8 @@
 
 Премиальный интерактивный лендинг психолога-консультанта, психосоматолога и тренера женской йоги. Реализован как точная, но усиленная версия оригинального макета: тот же контент и фотографии, но с плавным скроллом, параллаксом, поэтапными раскрытиями и живой дыхательной практикой.
 
+🌐 **Живой сайт:** https://legodev94.github.io/kod-dostupa-k-sebe/
+
 ## Технологии
 
 - **Next.js 16** (App Router) + **React 19**
@@ -55,7 +57,23 @@ public/images/      # hero, portrait, breath, og-cover
 - Тёмный navy-блок отзывов и тёплый градиентный CTA для контраста ритма
 - Полная адаптивность и поддержка `prefers-reduced-motion`
 
+## Деплой (GitHub Pages)
+
+Сайт собирается в статику (`output: 'export'`) и живёт в ветке `gh-pages`. Для проектной страницы задан `basePath: '/kod-dostupa-k-sebe'`, а локальные картинки префиксуются через `lib/asset.ts` (в статическом экспорте `next/image` не добавляет `basePath` сам).
+
+Повторный деплой после правок:
+
+```bash
+npm run build                     # генерирует out/
+cd out && touch .nojekyll
+git init -b gh-pages && git add -A && git commit -m "Deploy"
+git push -f https://github.com/LegoDev94/kod-dostupa-k-sebe.git gh-pages
+```
+
+Исходники — в ветке `main`, собранная статика — в `gh-pages`.
+
 ## Заметки
 
 - Ссылки на Telegram и VK — заглушки (`https://t.me/`, `https://vk.com/`), как в оригинале; подставьте реальные адреса в `lib/content.ts`.
 - Форма показывает экран благодарности на клиенте (бэкенд не подключён) — как в исходном макете. Для реальных заявок добавьте обработчик отправки в `components/Contact.tsx`.
+- Если поменяете имя репозитория — обновите `repo` в `next.config.mjs`, `BASE_PATH` в `lib/asset.ts` и `metadataBase` в `app/layout.tsx`.

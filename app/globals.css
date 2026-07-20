@@ -1,0 +1,210 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   Дизайн-система — «Код доступа к себе»
+   Тёплый молочный холст · глубокий navy · антикварное золото
+   ============================================================ */
+
+@theme {
+  /* Палитра (oklch — как в оригинале, расширена для глубины) */
+  --color-milk: oklch(98.5% 0.008 85);
+  --color-cream: oklch(96.5% 0.014 82);
+  --color-sand: oklch(94.5% 0.018 82);
+  --color-clay: oklch(90% 0.022 74);
+  --color-ink: oklch(22% 0.02 260);
+  --color-navy: oklch(28% 0.045 255);
+  --color-navy-deep: oklch(19% 0.038 258);
+  --color-gold: oklch(72% 0.115 75);
+  --color-gold-soft: oklch(82% 0.08 80);
+  --color-gold-deep: oklch(58% 0.1 66);
+  --color-olive: oklch(52% 0.05 128);
+  --color-card: oklch(99% 0.005 85);
+  --color-line: oklch(88% 0.02 82);
+  --color-line-soft: oklch(92% 0.015 82);
+  --color-muted: oklch(44% 0.02 262);
+
+  /* Типографика */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Плавность */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Тени */
+  --shadow-soft: 0 30px 80px -48px color-mix(in oklab, var(--color-navy) 40%, transparent);
+  --shadow-lift: 0 24px 60px -30px color-mix(in oklab, var(--color-navy) 30%, transparent);
+
+  /* Анимации */
+  --animate-breathe: breathe 8s var(--ease-inout) infinite;
+  --animate-drift: drift 24s linear infinite;
+  --animate-shimmer: shimmer 6s linear infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.08); opacity: 0.85; }
+}
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(2%, -3%, 0) rotate(4deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   База
+   ============================================================ */
+:root {
+  color-scheme: light;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto; /* плавность даёт Lenis */
+}
+
+body {
+  background-color: var(--color-milk);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01', 'cv01';
+  overflow-x: clip;
+}
+
+/* Ленис */
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+::selection {
+  background: color-mix(in oklab, var(--color-gold) 32%, transparent);
+  color: var(--color-navy-deep);
+}
+
+/* Тонкий шум/зерно поверх всего — премиальная текстура */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   Утилиты
+   ============================================================ */
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-gold-deep);
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--color-gold) 60%, transparent),
+    transparent
+  );
+}
+
+.link-underline {
+  background-image: linear-gradient(var(--color-gold), var(--color-gold));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-soft);
+}
+.link-underline:hover { background-size: 100% 1px; }
+
+/* Кнопки */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 0.9rem 1.6rem;
+  transition: transform 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft),
+    background-color 0.4s var(--ease-soft), color 0.4s var(--ease-soft);
+  will-change: transform;
+}
+.btn-primary {
+  background: var(--color-navy);
+  color: var(--color-milk);
+  box-shadow: var(--shadow-lift);
+}
+.btn-primary:hover {
+  background: var(--color-navy-deep);
+  box-shadow: 0 30px 70px -28px color-mix(in oklab, var(--color-navy) 55%, transparent);
+}
+.btn-ghost {
+  color: var(--color-navy);
+  border: 1px solid color-mix(in oklab, var(--color-navy) 22%, transparent);
+  background: color-mix(in oklab, var(--color-milk) 60%, transparent);
+}
+.btn-ghost:hover {
+  border-color: color-mix(in oklab, var(--color-gold) 60%, transparent);
+  color: var(--color-gold-deep);
+}
+
+/* Золотой отсвет по кромке карточек */
+.card {
+  position: relative;
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+  transition: transform 0.5s var(--ease-soft), box-shadow 0.5s var(--ease-soft),
+    border-color 0.5s var(--ease-soft);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--color-gold) 45%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Текстовый баланс для заголовков */
+.balance { text-wrap: balance; }
+
+/* Скрытие скроллбара для маркиз */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  body::after { display: none; }
+}

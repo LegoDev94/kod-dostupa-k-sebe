@@ -1,4 +1,5 @@
 import { footer, nav, site } from '@/lib/content';
+import Logo from './Logo';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -9,12 +10,7 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.4fr_0.8fr_0.8fr]">
           {/* Бренд */}
           <div className="max-w-sm">
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center rounded-full border border-gold/40 bg-milk/10 font-display text-lg">
-                Т
-              </span>
-              <span className="font-display text-xl">{site.name}</span>
-            </div>
+            <Logo variant="footer" showTagline={false} />
             <p className="mt-5 text-[15px] leading-relaxed text-milk/60">{footer.about}</p>
           </div>
 

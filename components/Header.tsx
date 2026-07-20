@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import { nav, site } from '@/lib/content';
+import Logo from './Logo';
 
 const sectionIds = ['about', 'approach', 'services', 'practice', 'contact'];
 
@@ -54,18 +55,7 @@ export default function Header() {
       >
         <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 sm:px-8">
           {/* Логотип */}
-          <a href="#top" className="group flex items-center gap-3" aria-label={site.name}>
-            <span className="relative grid size-10 place-items-center overflow-hidden rounded-full border border-gold/40 bg-navy text-milk">
-              <span className="font-display text-lg leading-none">Т</span>
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-gold/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            </span>
-            <span className="hidden flex-col leading-tight sm:flex">
-              <span className="font-display text-[17px] font-medium text-navy-deep">{site.name}</span>
-              <span className="text-[10px] uppercase tracking-[0.24em] text-gold-deep">
-                {site.tagline}
-              </span>
-            </span>
-          </a>
+          <Logo />
 
           {/* Навигация — десктоп */}
           <nav className="hidden items-center gap-1 md:flex">

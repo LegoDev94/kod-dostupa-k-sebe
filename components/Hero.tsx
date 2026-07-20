@@ -174,8 +174,8 @@ export default function Hero() {
           <div className="h-full w-full rounded-full bg-[radial-gradient(circle,transparent_58%,color-mix(in_oklab,var(--color-gold)_42%,transparent)_66%,transparent_76%)]" />
         </motion.div>
 
-        {/* Читаемость текста слева + виньетка снизу */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklab,var(--color-milk)_72%,transparent),color-mix(in_oklab,var(--color-milk)_20%,transparent)_45%,transparent_70%)]" />
+        {/* Белая заливка из нижнего-левого угла, плавно уходящая вверх в прозрачный блюр */}
+        <div className="absolute inset-0 hidden sm:block bg-[radial-gradient(128%_122%_at_4%_112%,var(--color-milk)_0%,var(--color-milk)_36%,color-mix(in_oklab,var(--color-milk)_62%,transparent)_54%,color-mix(in_oklab,var(--color-milk)_24%,transparent)_68%,transparent_82%)]" />
         {/* На мобильном текст идёт по всей ширине — добавляем вертикальную вуаль */}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-milk)_0%,color-mix(in_oklab,var(--color-milk)_78%,transparent)_40%,color-mix(in_oklab,var(--color-milk)_42%,transparent)_62%,transparent_82%)] sm:hidden" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(0deg,var(--color-milk),transparent)]" />

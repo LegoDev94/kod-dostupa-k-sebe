@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Manrope } from 'next/font/google';
+import { Cormorant_Garamond, Manrope, Caveat } from 'next/font/google';
 import './globals.css';
 import { site } from '@/lib/content';
 
@@ -14,6 +14,13 @@ const manrope = Manrope({
   subsets: ['latin', 'cyrillic'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-manrope',
+  display: 'swap',
+});
+
+const caveat = Caveat({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['500', '600'],
+  variable: '--font-caveat',
   display: 'swap',
 });
 
@@ -43,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${cormorant.variable} ${manrope.variable}`}>
+    <html lang="ru" className={`${cormorant.variable} ${manrope.variable} ${caveat.variable}`}>
       <body>{children}</body>
     </html>
   );

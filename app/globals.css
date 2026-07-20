@@ -26,6 +26,7 @@
   /* Типографика */
   --font-display: var(--font-cormorant), 'Cormorant Garamond', 'Times New Roman', serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-caveat), 'Segoe Script', cursive;
 
   /* Плавность */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);

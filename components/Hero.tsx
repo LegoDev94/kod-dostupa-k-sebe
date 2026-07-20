@@ -154,10 +154,9 @@ export default function Hero() {
             fill
             priority
             sizes="100vw"
-            className="scale-110 object-cover blur-2xl"
+            className="scale-105 object-cover blur-[10px]"
           />
-          <div className="absolute inset-0 bg-white/55" />
-          <div className="absolute inset-0 bg-[linear-gradient(115deg,color-mix(in_oklab,var(--color-milk)_70%,transparent),transparent_60%)]" />
+          <div className="absolute inset-0 bg-white/32" />
         </motion.div>
 
         {/* Золотой ободок линзы */}

@@ -14,11 +14,15 @@ export default function Contact() {
   };
 
   const inputCls =
-    'w-full rounded-2xl border border-line bg-milk px-4 py-3.5 text-[15px] text-ink outline-none transition-colors duration-300 placeholder:text-muted/60 focus:border-gold/60';
+    'w-full rounded-2xl border border-line bg-milk px-4 py-3.5 text-[15px] text-ink outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-gold/70 focus:bg-white focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-gold)_16%,transparent)]';
 
   return (
-    <section id="contact" className="relative py-24 sm:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-7xl items-start gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
+    <section id="contact" className="relative overflow-hidden py-24 sm:py-28 lg:py-32">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 top-1/4 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--color-gold)_8%,transparent),transparent_68%)] blur-3xl"
+      />
+      <div className="relative mx-auto grid max-w-7xl items-start gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
         {/* Левая колонка */}
         <div>
           <Reveal>
@@ -43,7 +47,7 @@ export default function Contact() {
                 rel="noreferrer"
                 className="group flex items-center gap-4"
               >
-                <span className="grid size-11 place-items-center rounded-full border border-line text-gold-deep transition-colors duration-400 group-hover:border-gold/50">
+                <span className="grid size-11 place-items-center rounded-full border border-line text-gold-deep transition-all duration-400 group-hover:-translate-y-0.5 group-hover:border-gold/50">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M21.9 4.4l-3.3 15.6c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13.5l-4.8-1.5c-1-.3-1-1 .2-1.5l18.7-7.2c.9-.3 1.6.2 1.3 1.6z" />
                   </svg>
@@ -76,6 +80,11 @@ export default function Contact() {
         {/* Форма */}
         <Reveal delay={0.12}>
           <div className="relative rounded-[2rem] border border-line bg-card p-7 shadow-[var(--shadow-soft)] sm:p-9">
+            {/* золотой акцент сверху */}
+            <span
+              aria-hidden
+              className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+            />
             <AnimatePresence mode="wait">
               {sent ? (
                 <motion.div
@@ -86,12 +95,18 @@ export default function Contact() {
                   className="flex flex-col items-center py-14 text-center"
                 >
                   <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.15, type: 'spring', stiffness: 220, damping: 16 }}
-                    className="grid size-16 place-items-center rounded-full bg-navy text-2xl text-milk"
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.15, type: 'spring', stiffness: 220, damping: 15 }}
+                    className="relative grid size-16 place-items-center rounded-full bg-navy text-2xl text-milk"
                   >
                     ✓
+                    <motion.span
+                      initial={{ scale: 0.6, opacity: 0.7 }}
+                      animate={{ scale: 1.6, opacity: 0 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: 'easeOut' }}
+                      className="absolute inset-0 rounded-full border border-gold/50"
+                    />
                   </motion.span>
                   <h3 className="mt-6 font-display text-3xl text-navy-deep">{contact.successTitle}</h3>
                   <p className="mt-3 text-[15.5px] text-muted">{contact.successText}</p>
@@ -127,8 +142,12 @@ export default function Contact() {
                       className={`${inputCls} resize-none`}
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary w-full">
-                    {contact.submit}
+                  <button
+                    type="submit"
+                    className="group/btn relative w-full overflow-hidden rounded-full bg-navy px-6 py-3.5 text-[15px] font-medium text-milk shadow-[var(--shadow-lift)] transition-all duration-400 hover:-translate-y-0.5 hover:bg-navy-deep"
+                  >
+                    <span className="relative z-10">{contact.submit}</span>
+                    <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-gold/30 to-transparent transition-transform duration-[900ms] ease-out group-hover/btn:translate-x-full" />
                   </button>
                   <p className="text-[12.5px] leading-relaxed text-muted">{contact.consent}</p>
                 </motion.form>

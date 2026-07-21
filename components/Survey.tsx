@@ -108,26 +108,40 @@ export default function Survey() {
         className="pointer-events-none absolute left-1/2 top-10 h-[440px] w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,color-mix(in_oklab,var(--color-gold)_9%,transparent),transparent_70%)] blur-2xl"
       />
 
-      <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
-        <Reveal>
-          <p className="eyebrow">{survey.eyebrow}</p>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[clamp(2rem,5vw,3.4rem)] font-light leading-[1.06] text-navy-deep balance">
-            {survey.title}
-          </h2>
-        </Reveal>
-        <Reveal delay={0.16}>
-          <p className="mx-auto mt-5 max-w-xl text-[16.5px] leading-relaxed text-muted">{survey.intro}</p>
-        </Reveal>
-        <Reveal delay={0.22}>
-          <p className="mx-auto mt-2 max-w-xl text-[16.5px] leading-relaxed text-muted">{survey.intro2}</p>
-        </Reveal>
-      </div>
+      <div className="relative mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
+        {/* Приглашение */}
+        <div className="lg:sticky lg:top-28">
+          <Reveal>
+            <p className="eyebrow">{survey.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="mt-4 max-w-md font-display text-[clamp(2.1rem,4.8vw,3.5rem)] font-light leading-[1.05] text-navy-deep balance">
+              {survey.title}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-6 max-w-md text-[16.5px] leading-relaxed text-muted">{survey.intro}</p>
+          </Reveal>
+          <Reveal delay={0.22}>
+            <p className="mt-3 max-w-md text-[16.5px] leading-relaxed text-muted">{survey.intro2}</p>
+          </Reveal>
+          <Reveal delay={0.28}>
+            <div className="mt-8 flex max-w-md items-start gap-3 rounded-2xl border border-gold/30 bg-[color-mix(in_oklab,var(--color-gold)_7%,transparent)] px-5 py-4">
+              <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-navy text-milk">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 12v8a1 1 0 01-1 1H5a1 1 0 01-1-1v-8" />
+                  <path d="M3 8h18v4H3zM12 21V8" />
+                  <path d="M12 8S9.7 3.5 7.7 4.6 8.6 8 12 8zM12 8s2.3-4.5 4.3-3.4S15.4 8 12 8z" />
+                </svg>
+              </span>
+              <p className="text-[15px] leading-relaxed text-navy-deep">{survey.freeNote}</p>
+            </div>
+          </Reveal>
+        </div>
 
-      <Reveal delay={0.14}>
-        <div className="relative mx-auto mt-10 max-w-xl px-5 sm:px-0">
-          <div className="relative flex min-h-[420px] flex-col overflow-hidden rounded-[2rem] border border-line bg-card p-7 shadow-[var(--shadow-soft)] sm:p-9">
+        {/* Анкета */}
+        <Reveal delay={0.14}>
+          <div className="relative flex min-h-[440px] flex-col overflow-hidden rounded-[2rem] border border-line bg-card p-7 shadow-[var(--shadow-soft)] sm:p-9">
             {/* золотой акцент сверху */}
             <span
               aria-hidden
@@ -152,7 +166,7 @@ export default function Survey() {
                     </svg>
                   </span>
                   <p className="mt-6 max-w-sm text-[16px] leading-relaxed text-navy-deep">
-                    {survey.freeNote}
+                    Ответы помогут сделать нашу первую встречу более содержательной.
                   </p>
                   <button
                     onClick={() => {
@@ -291,8 +305,8 @@ export default function Survey() {
               )}
             </AnimatePresence>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
     </section>
   );
 

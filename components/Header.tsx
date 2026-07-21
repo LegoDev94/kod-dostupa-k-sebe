@@ -59,7 +59,7 @@ export default function Header() {
 
           {/* Навигация — десктоп */}
           <nav className="hidden items-center gap-1 md:flex">
-            {nav.slice(0, 4).map((n) => {
+            {nav.map((n) => {
               const id = n.href.replace('#', '');
               const isActive = active === id;
               return (

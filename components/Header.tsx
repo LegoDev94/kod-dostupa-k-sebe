@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import { nav, site } from '@/lib/content';
 import Logo from './Logo';
 
-const sectionIds = ['about', 'approach', 'services', 'practice', 'contact'];
+const sectionIds = ['about', 'approach', 'services', 'practice', 'anketa', 'contact'];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -85,7 +85,7 @@ export default function Header() {
 
           <div className="flex items-center gap-2">
             <a
-              href="#contact"
+              href="#anketa"
               className="hidden rounded-full bg-navy px-5 py-2.5 text-[13.5px] font-medium text-milk shadow-[var(--shadow-lift)] transition-all duration-400 hover:bg-navy-deep sm:inline-flex"
             >
               Записаться

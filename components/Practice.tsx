@@ -7,23 +7,47 @@ import { practice } from '@/lib/content';
 import { asset } from '@/lib/asset';
 import { Reveal } from './Reveal';
 
-const CYCLE = 4000; // мс на вдох / выдох
+const INHALE = 4000; // вдох — 4 счёта
+const EXHALE = 8000; // выдох — 8 счётов
+const WORDS = ['есть', 'здесь', 'сейчас']; // три круга возвращения
 
 export default function Practice() {
+  const [breath, setBreath] = useState(0);
   const [phase, setPhase] = useState<'inhale' | 'exhale'>('inhale');
+  const [count, setCount] = useState(1);
   const [playing, setPlaying] = useState(true);
 
+  // Смена фаз с разной длительностью
   useEffect(() => {
     if (!playing) return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const dur = phase === 'inhale' ? INHALE : EXHALE;
+    const t = setTimeout(() => {
+      if (phase === 'inhale') setPhase('exhale');
+      else {
+        setBreath((b) => (b + 1) % WORDS.length);
+        setPhase('inhale');
+      }
+    }, dur);
+    return () => clearTimeout(t);
+  }, [phase, breath, playing]);
+
+  // Счёт внутри фазы
+  useEffect(() => {
+    if (!playing) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const max = phase === 'inhale' ? 4 : 8;
+    setCount(1);
+    let c = 1;
     const id = setInterval(() => {
-      setPhase((p) => (p === 'inhale' ? 'exhale' : 'inhale'));
-    }, CYCLE);
+      c = Math.min(max, c + 1);
+      setCount(c);
+    }, 1000);
     return () => clearInterval(id);
-  }, [playing]);
+  }, [phase, breath, playing]);
 
   const inhale = phase === 'inhale';
+  const dots = inhale ? 4 : 8;
 
   return (
     <section id="practice" className="relative py-24 sm:py-28 lg:py-32">
@@ -74,8 +98,8 @@ export default function Practice() {
                 key={r}
                 aria-hidden
                 className="absolute left-1/2 top-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-milk/40"
-                animate={{ scale: [0.7, 1.9], opacity: [0.5, 0] }}
-                transition={{ duration: CYCLE * 2 / 1000, repeat: Infinity, ease: 'easeOut', delay: r * (CYCLE / 1000) }}
+                animate={{ scale: [0.7, 1.9], opacity: [0.45, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: 'easeOut', delay: r * 3.5 }}
               />
             ))}
 
@@ -84,25 +108,41 @@ export default function Practice() {
               onClick={() => setPlaying((v) => !v)}
               aria-label={playing ? 'Пауза' : 'Начать дыхание'}
               className="absolute left-1/2 top-1/2 grid size-40 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-milk/50 bg-milk/15 text-center backdrop-blur-md"
-              animate={{ scale: inhale ? 1.14 : 0.86 }}
-              transition={{ duration: CYCLE / 1000, ease: 'easeInOut' }}
+              animate={{ scale: inhale ? 1.16 : 0.82 }}
+              transition={{ duration: (inhale ? INHALE : EXHALE) / 1000, ease: 'easeInOut' }}
             >
-              <span className="pointer-events-none select-none">
+              <span className="pointer-events-none flex select-none flex-col items-center">
+                <span className="text-[10px] uppercase tracking-[0.24em] text-milk/70">
+                  {inhale ? 'Вдох · 4' : 'Выдох · 8'}
+                </span>
                 <AnimatePresence mode="wait">
                   <motion.span
-                    key={phase}
+                    key={`${phase}-${breath}`}
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.5 }}
-                    className="block font-display text-2xl text-milk"
+                    className="mt-1.5 block font-display text-[1.7rem] leading-none text-milk"
                   >
-                    {inhale ? 'Вдох' : 'Выдох'}
+                    {inhale ? 'Я' : `Я ${WORDS[breath]}`}
                   </motion.span>
                 </AnimatePresence>
-                <span className="mt-1 block text-[10px] uppercase tracking-[0.24em] text-milk/70">
-                  {playing ? practice.overlaySub : 'нажмите'}
-                </span>
+                {playing ? (
+                  <span className="mt-2.5 flex gap-1">
+                    {Array.from({ length: dots }).map((_, k) => (
+                      <span
+                        key={k}
+                        className={`size-1 rounded-full transition-colors duration-300 ${
+                          k < count ? 'bg-milk' : 'bg-milk/25'
+                        }`}
+                      />
+                    ))}
+                  </span>
+                ) : (
+                  <span className="mt-2.5 text-[10px] uppercase tracking-[0.24em] text-milk/70">
+                    нажмите
+                  </span>
+                )}
               </span>
             </motion.button>
 

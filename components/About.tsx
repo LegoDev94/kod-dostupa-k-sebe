@@ -73,7 +73,7 @@ export default function About() {
             {/* Печать-медальон «15+ лет» */}
             <div className="absolute right-5 top-5 grid size-[72px] place-items-center rounded-full border border-milk/30 bg-navy-deep/45 text-center text-milk backdrop-blur-md">
               <div>
-                <div className="font-display text-xl leading-none">15+</div>
+                <div className="font-display text-xl leading-none">10+</div>
                 <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-milk/75">лет</div>
               </div>
             </div>

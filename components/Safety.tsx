@@ -39,7 +39,7 @@ export default function Safety() {
         <Stagger className="flex flex-col" amount={0.15}>
           {safety.items.map((text, i) => (
             <StaggerItem key={i}>
-              <div className="group flex items-center gap-6 border-b border-line py-6 first:pt-0">
+              <div className="group flex items-center gap-6 py-6 first:pt-0">
                 <span className="relative grid size-14 shrink-0 place-items-center rounded-full border border-line bg-milk text-gold-deep transition-all duration-500 group-hover:-translate-y-0.5 group-hover:border-gold/50 group-hover:shadow-[0_16px_34px_-16px_var(--color-gold)]">
                   {/* золотое кольцо-печать, проступающее на hover */}
                   <span className="absolute inset-1 rounded-full border border-dashed border-gold/0 transition-all duration-700 group-hover:rotate-90 group-hover:border-gold/40" />
@@ -59,6 +59,7 @@ export default function Safety() {
                 </span>
                 <p className="text-[16.5px] leading-relaxed text-ink/85">{text}</p>
               </div>
+              {i < safety.items.length - 1 && <div className="ml-20 h-px bg-line" />}
             </StaggerItem>
           ))}
         </Stagger>

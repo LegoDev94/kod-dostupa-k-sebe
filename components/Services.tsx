@@ -49,7 +49,7 @@ export default function Services() {
             const span = i < 3 ? 'lg:col-span-2' : 'lg:col-span-3';
             return (
               <StaggerItem key={item.t} className={`h-full ${span}`}>
-                <a href="#contact" className="block h-full">
+                <a href="#anketa" className="block h-full">
                   <SpotlightCard>
                     <div className="flex h-full flex-col p-7 sm:p-8">
                       <div className="flex items-start justify-between gap-4">

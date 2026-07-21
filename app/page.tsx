@@ -12,6 +12,7 @@ import Testimonials from '@/components/Testimonials';
 import Practice from '@/components/Practice';
 import Community from '@/components/Community';
 import Faq from '@/components/Faq';
+import Survey from '@/components/Survey';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
@@ -32,6 +33,7 @@ export default function Home() {
         <Practice />
         <Community />
         <Faq />
+        <Survey />
         <Contact />
       </main>
       <Footer />

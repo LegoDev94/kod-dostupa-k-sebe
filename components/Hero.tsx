@@ -237,7 +237,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 1, ease: EASE }}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <MagneticButton href="#contact" className="btn btn-primary">
+            <MagneticButton href="#anketa" className="btn btn-primary">
               {hero.ctaPrimary}
             </MagneticButton>
             <MagneticButton href="#approach" className="btn btn-ghost">

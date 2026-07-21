@@ -37,10 +37,15 @@ export default function About() {
   return (
     <section id="about" ref={ref} className="relative overflow-hidden bg-cream py-24 sm:py-28 lg:py-32">
       <div className="hairline absolute inset-x-0 top-0" />
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 top-16 h-[440px] w-[440px] rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--color-gold)_9%,transparent),transparent_68%)] blur-3xl"
+      />
+
+      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
         {/* Портрет */}
         <div
-          className="relative order-1 mx-auto w-full max-w-md [perspective:1200px] lg:order-none"
+          className="group relative order-1 mx-auto w-full max-w-md [perspective:1200px] lg:order-none"
           onMouseMove={onMove}
           onMouseLeave={onLeave}
         >
@@ -70,13 +75,19 @@ export default function About() {
               />
             </motion.div>
 
-            {/* Печать-медальон «15+ лет» */}
-            <div className="absolute right-5 top-5 grid size-[72px] place-items-center rounded-full border border-milk/30 bg-navy-deep/45 text-center text-milk backdrop-blur-md">
-              <div>
-                <div className="font-display text-xl leading-none">10+</div>
-                <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-milk/75">лет</div>
-              </div>
+            {/* Печать — ключ «код доступа» */}
+            <div className="absolute right-5 top-5 grid size-[58px] place-items-center rounded-full border border-milk/30 bg-navy-deep/45 text-gold-soft backdrop-blur-md">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="8" cy="8" r="4" />
+                <path d="M11 11l7 7M15 18h3v-3" />
+              </svg>
             </div>
+
+            {/* Световой блик на наведении */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/12 to-transparent transition-transform duration-[1100ms] ease-out group-hover:translate-x-[130%]"
+            />
           </motion.div>
         </div>
 
@@ -106,26 +117,23 @@ export default function About() {
 
           {/* Подпись-росчерк */}
           <Reveal delay={0.34}>
-            <div className="mt-6 flex items-center gap-4">
-              <span className="font-script text-[2.6rem] leading-none text-gold-deep">
-                Татьяна
-              </span>
-              <span className="hairline h-px flex-1" />
-            </div>
+            <span className="mt-8 block font-script text-[2.9rem] leading-none text-gold-deep">
+              Татьяна
+            </span>
           </Reveal>
 
           {/* Статистика */}
           <Reveal delay={0.4}>
-            <dl className="mt-9 grid grid-cols-3 gap-4 border-t border-line pt-8">
+            <dl className="mt-10 grid grid-cols-3 gap-6">
               {about.stats.map((s) => (
-                <div key={s.label} className="group/stat">
-                  <span className="mb-3 block h-px w-8 bg-gold/50 transition-all duration-500 group-hover/stat:w-14" />
-                  <dd className="font-display text-[2.4rem] font-light leading-none text-navy">
+                <div key={s.label} className="group/stat cursor-default">
+                  <dd className="font-display text-[2.7rem] font-light leading-none text-navy transition-colors duration-500 group-hover/stat:text-gold-deep">
                     <Counter value={s.value} suffix={s.suffix} />
                   </dd>
                   <dt className="mt-2 text-[11px] uppercase tracking-[0.2em] text-muted">
                     {s.label}
                   </dt>
+                  <span className="mt-3 block h-px w-0 bg-gold transition-all duration-500 group-hover/stat:w-10" />
                 </div>
               ))}
             </dl>
